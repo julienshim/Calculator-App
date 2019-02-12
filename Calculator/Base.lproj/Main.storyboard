@@ -45,7 +45,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="92" height="128"/>
                                                 <color key="backgroundColor" red="0.39214909076690674" green="0.39590877294540405" blue="0.40785431861877441" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
-                                                <state key="normal" title="C">
+                                                <state key="normal" title="AC">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
@@ -53,7 +53,12 @@
                                                 <rect key="frame" x="94" y="0.0" width="92" height="128"/>
                                                 <color key="backgroundColor" red="0.39214909076690674" green="0.39590877294540405" blue="0.40785431861877441" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
-                                                <state key="normal" title="+/-">
+                                                <state key="normal">
+                                                    <string key="title">⁺/-
+SUBSCRIPT MINUS
+Unicode: U+208B, UTF-8: E2 82 8B 
+SUPERSCRIPT PLUS SIGN
+Unicode: U+207A, UTF-8: E2 81 BA</string>
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
