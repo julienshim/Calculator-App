@@ -10,34 +10,37 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var display: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        display.text = "0";
     }
-    
 
     @IBAction func buttonPressed(_ sender: UIButton) {
         switch sender.tag {
             case 1:
-                print("one")
+                updateDisplay(value: "1");
             case 2:
-                print("two")
+                updateDisplay(value: "2");
             case 3:
-                print("three")
+                updateDisplay(value: "3");
             case 4:
-                print("four")
+                updateDisplay(value: "4");
             case 5:
-                print("five")
+                updateDisplay(value: "5");
             case 6:
-                print("six")
+                updateDisplay(value: "6");
             case 7:
-                print("seven")
+                updateDisplay(value: "7");
             case 8:
-                print("eight")
+                updateDisplay(value: "8");
             case 9:
-                print("nine")
+                updateDisplay(value: "9");
             case 10:
-                print("zero")
+                updateDisplay(value: "0");
             case 11:
                 print("decimal")
             case 12:
@@ -51,7 +54,8 @@ class ViewController: UIViewController {
             case 16:
                 print("equals")
             case 17:
-                print("all clear")
+//                print("all clear")
+                display.text = "0"
             case 18:
                 print("plus/negative")
             case 19:
@@ -59,6 +63,16 @@ class ViewController: UIViewController {
             default: ()
         }
         
+    }
+    
+    func updateDisplay (value: String) {
+        
+        if (display.text == "0") {
+            display.text = value
+        } else {
+            display.text! += value
+        }
+
     }
     
 }
