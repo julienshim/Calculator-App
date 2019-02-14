@@ -9,14 +9,18 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var math = [String]()
 
     @IBOutlet weak var display: UILabel!
+    @IBOutlet weak var clearButtonDisplay: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         display.text = "0";
+        
     }
 
     @IBAction func buttonPressed(_ sender: UIButton) {
@@ -50,12 +54,12 @@ class ViewController: UIViewController {
             case 14:
                 print("subtract")
             case 15:
-                print("add")
+                calculate(value: display.text!, sign: "add")
             case 16:
                 print("equals")
             case 17:
 //                print("all clear")
-                display.text = "0"
+                clear()
             case 18:
                 plusNegative(value: display.text!)
             case 19:
@@ -66,20 +70,27 @@ class ViewController: UIViewController {
     }
     
     func updateDisplay (value: String) {
-        
+        clearButtonDisplay.setTitle("C", for: UIControl.State.normal)
         if (display.text == "0") {
             display.text = value
         } else {
             display.text! += value
         }
-
     }
     
     func plusNegative (value: String) {
-        
         let flip = Int(value)! * -1
         display.text = String(flip)
     }
     
+    func calculate (value: String, sign: String) {
+        math.append(value)
+        math.append(sign)
+    }
+    
+    func clear() {
+        clearButtonDisplay.setTitle("AC", for: UIControl.State.normal)
+        display.text = "0"
+    }
 }
 
