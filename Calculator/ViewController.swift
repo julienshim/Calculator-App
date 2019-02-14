@@ -57,7 +57,7 @@ class ViewController: UIViewController {
 //                print("all clear")
                 display.text = "0"
             case 18:
-                print("plus/negative")
+                plusNegative(value: display.text!)
             case 19:
                 print("percent")
             default: ()
@@ -73,6 +73,12 @@ class ViewController: UIViewController {
             display.text! += value
         }
 
+    }
+    
+    func plusNegative (value: String) {
+        
+        let flip = Int(value)! * -1
+        display.text = String(flip)
     }
     
 }
