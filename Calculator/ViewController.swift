@@ -46,7 +46,7 @@ class ViewController: UIViewController {
             case 10:
                 updateDisplay(value: "0");
             case 11:
-                print("decimal")
+                updateDisplay(value: ".")
             case 12:
                 print("divide")
             case 13:
