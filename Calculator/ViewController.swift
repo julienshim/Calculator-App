@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     var math = [String]()
+    var temp = [String]()
 
     @IBOutlet weak var display: UILabel!
     @IBOutlet weak var clearButtonDisplay: UIButton!
@@ -91,6 +92,14 @@ class ViewController: UIViewController {
     func clear() {
         clearButtonDisplay.setTitle("AC", for: UIControl.State.normal)
         display.text = "0"
+    }
+    
+    func addSubtract(value: String) {
+        
+    }
+    
+    func divideMultiply(value: String) {
+        
     }
 }
 
