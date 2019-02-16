@@ -12,7 +12,9 @@ class ViewController: UIViewController {
     
     var math = [String]()
     var temp = [String]()
-
+    var fullStop : Bool = true
+    var currentDisplay : String = ""
+    
     @IBOutlet weak var display: UILabel!
     @IBOutlet weak var clearButtonDisplay: UIButton!
     
@@ -20,7 +22,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        display.text = "0";
+        display.text = "0"
+    
         
     }
 
@@ -55,14 +58,14 @@ class ViewController: UIViewController {
             case 14:
                 print("subtract")
             case 15:
-                calculate(value: display.text!, sign: "add")
+                addSubtract(value: display.text!, sign: "add")
             case 16:
                 print("equals")
             case 17:
 //                print("all clear")
                 clear()
             case 18:
-                plusNegative(value: display.text!)
+                plusNegative(value: display.text!, sign: "add")
             case 19:
                 print("percent")
             default: ()
@@ -72,21 +75,23 @@ class ViewController: UIViewController {
     
     func updateDisplay (value: String) {
         clearButtonDisplay.setTitle("C", for: UIControl.State.normal)
-        if (display.text == "0") {
+        if (fullStop == true) {
             display.text = value
+            fullStop = false
         } else {
             display.text! += value
         }
     }
     
-    func plusNegative (value: String) {
+    func plusNegative (value: String, sign: String) {
         let flip = Int(value)! * -1
         display.text = String(flip)
     }
     
     func calculate (value: String, sign: String) {
-        math.append(value)
-        math.append(sign)
+        if (sign == "add") {
+            return
+        }
     }
     
     func clear() {
@@ -94,12 +99,15 @@ class ViewController: UIViewController {
         display.text = "0"
     }
     
-    func addSubtract(value: String) {
-        
+    func addSubtract(value: String, sign: String) {
+        currentDisplay = display.text!
+        fullStop = true
+        temp.append(currentDisplay)
+        temp.append(sign)
+        print(temp)
     }
     
     func divideMultiply(value: String) {
-        
+        fullStop = true
     }
 }
-
