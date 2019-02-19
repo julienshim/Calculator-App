@@ -75,7 +75,7 @@ class ViewController: UIViewController {
     
     func updateDisplay (value: String) {
         clearButtonDisplay.setTitle("C", for: UIControl.State.normal)
-        if (fullStop == true) {
+        if (fullStop == true || display.text == "0") {
             display.text = value
             fullStop = false
         } else {
