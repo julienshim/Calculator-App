@@ -10,10 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var math = [Int]()
-    var temp = [Any]()
-    var fullStop : Bool = true
-    var currentDisplay : String = ""
+    var currentDisplay: String = "0"
+    var isOpPressed: Bool = false
     
     @IBOutlet weak var display: UILabel!
     @IBOutlet weak var clearButtonDisplay: UIButton!
@@ -22,94 +20,68 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        display.text = "0"
+        display.text = String(0);
     }
 
-    @IBAction func buttonPressed(_ sender: UIButton) {
+    @IBAction func pressNum(_ sender: UIButton) {
         switch Int(sender.tag) {
             case 1:
-                updateDisplay(value: 1);
+                updateDisplay(value: String(sender.tag));
             case 2:
-                updateDisplay(value: 2);
+                updateDisplay(value: String(sender.tag));
             case 3:
-                updateDisplay(value: 3);
+                updateDisplay(value: String(sender.tag));
             case 4:
-                updateDisplay(value: 4);
+                updateDisplay(value: String(sender.tag));
             case 5:
-                updateDisplay(value: 5);
+                updateDisplay(value: String(sender.tag));
             case 6:
-                updateDisplay(value: 6);
+                updateDisplay(value: String(sender.tag));
             case 7:
-                updateDisplay(value: 7);
+                updateDisplay(value: String(sender.tag));
             case 8:
-                updateDisplay(value: 8);
+                updateDisplay(value: String(sender.tag));
             case 9:
-                updateDisplay(value: 9);
+                updateDisplay(value: String(sender.tag));
             case 10:
-                updateDisplay(value: 0);
+                updateDisplay(value: String(0));
             case 11:
                 updateDisplay(value: ".")
-            case 12:
-                print("divide")
-            case 13:
-                print("multiply")
-            case 14:
-                print("subtract")
-            case 15:
-                print("add")
-            case 16:
-                print("equals")
-            case 17:
-                print("what's up")
-                whatTheFuck()
-            case 18:
-                print("plus negative")
-            case 19:
-                print("percent")
             default: ()
         }
-        
     }
     
-    func updateDisplay (value: Any) {
-        clearButtonDisplay.setTitle("C", for: UIControl.State.normal)
-        if (fullStop == true || display.text == "0") {
-            display.text! = value as! String
-            fullStop = false
-        } else {
-            display.text! += value as! String
+    @IBAction func pressOp(_ sender: UIButton) {
+        switch Int(sender.tag) {
+            case 11:
+                print("divide")
+                isOpPressed = true
+            case 12:
+                print("multiply")
+                isOpPressed = true
+            case 13:
+                print("subtract")
+                isOpPressed = true
+            case 14:
+                print("add")
+                isOpPressed = true
+            default: ()
         }
     }
-//
-//    func plusNegative (value: String, sign: String) {
-//        let flip = Int(value)! * -1
-//        display.text = String(flip)
-//    }
-//
-//    func calculate (value: String, sign: String) {
-//        if (sign == "add") {
-//            return
-//        }
-//    }
-//
-    func whatTheFuck() {
-        clearButtonDisplay.setTitle("AC", for: UIControl.State.normal)
-        display.text = "0"
-        math = [Int]()
+    
+    
+    @IBAction func pressClear(_ sender: UIButton) {
+        print("clear")
     }
-//
-//    func addSubtract(value: String, sign: String) {
-//        currentDisplay = display.text!
-//        fullStop = true
-//        temp.append(currentDisplay)
-//
-//        if (temp[0] == "add" || temp[0] == "subtract") {
-//            math = math + Int(temp[1])
-//        }
-//        temp.append(sign)
-//    }
-//
-//    func divideMultiply(value: String) {
-//        fullStop = true
-//    }
+    
+    
+    func updateDisplay (value: String) {
+        clearButtonDisplay.setTitle("C", for: UIControl.State.normal)
+        if (display.text == String(0)) {
+            display.text = value
+        } else {
+            display.text! += value
+        }
+    }
+
 }
