@@ -164,14 +164,26 @@ class ViewController: UIViewController {
     }
     
     func calculate (m: Double, cC: [String]){
-        if (cC[0] == "multiply") {
-            master = m * Double(cC[1])!
+        let op1 = cC[0]
+        let num1 = cC[1]
+        let op2 = cC[2]
+        
+        if (op1 == "multiply") {
+            master = m * Double(num1)!
             updateDisplay(value: String(format: "%g", master))
-        } else if (cC[0] == "divide") {
-            master = m / Double(cC[1])!
+            currentCalculation = [op2]
+        } else if (op1 == "divide") {
+            master = m / Double(num1)!
+            updateDisplay(value: String(format: "%g", master))
+            currentCalculation = [op2]
+        } else if (op1 == "add") {
+            master = m + Double(num1)!
+            updateDisplay(value: String(format: "%g", master))
+        } else if (op1 == "subtract") {
+            master = m - Double(num1)!
             updateDisplay(value: String(format: "%g", master))
         }
-        currentCalculation = [cC[2]]
+
         isNewDisplay = true
         print(master, currentCalculation)
         
