@@ -12,6 +12,10 @@ class ViewController: UIViewController {
     
     var currentDisplay: String = "0"
     var isOpPressed: Bool = false
+    var isNewDisplay: Bool = true
+    var lastPressed: String = "num"
+    var currentCalculation = [String]()
+    var master : Double = 0.0
     
     @IBOutlet weak var display: UILabel!
     @IBOutlet weak var clearButtonDisplay: UIButton!
@@ -21,9 +25,12 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         display.text = String(0);
+        print(master, currentCalculation, lastPressed)
     }
 
     @IBAction func pressNum(_ sender: UIButton) {
+        isOpPressed = false
+        lastPressed = "num"
         switch Int(sender.tag) {
             case 1:
                 updateDisplay(value: String(sender.tag));
@@ -49,43 +56,112 @@ class ViewController: UIViewController {
                 updateDisplay(value: ".")
             default: ()
         }
+
     }
     
     @IBAction func pressOp(_ sender: UIButton) {
-        switch Int(sender.tag) {
+        isOpPressed = true
+        isNewDisplay = true
+        if (lastPressed == "num" || lastPressed == "clear") {
+            if (master == 0) {
+                master = Double(display.text!)!
+            } else if (currentCalculation.count % 2 == 1) {
+                currentCalculation.append(display.text!)
+            }
+            switch Int(sender.tag) {
             case 11:
-                print("divide")
-                isOpPressed = true
+                currentCalculation.append("divide")
             case 12:
-                print("multiply")
-                isOpPressed = true
+                currentCalculation.append("multiple")
             case 13:
-                print("subtract")
-                isOpPressed = true
+                currentCalculation.append("subtract")
             case 14:
-                print("add")
-                isOpPressed = true
+                currentCalculation.append("add")
             default: ()
+            }
+        } else if (lastPressed == "op") {
+            switch Int(sender.tag) {
+            case 11:
+                if(currentCalculation.count > 1) {
+                    currentCalculation.removeLast()
+                    currentCalculation.append("divide")
+                } else {
+                    currentCalculation = [String]()
+                    currentCalculation.append("divide")
+                }
+            case 12:
+                if(currentCalculation.count > 1) {
+                    currentCalculation.removeLast()
+                    currentCalculation.append("multiply")
+                } else {
+                    currentCalculation = [String]()
+                    currentCalculation.append("multiply")
+                }
+            case 13:
+                if(currentCalculation.count > 1) {
+                    currentCalculation.removeLast()
+                    currentCalculation.append("subtract")
+                } else {
+                    currentCalculation = [String]()
+                    currentCalculation.append("subtract")
+                }
+            case 14:
+                if(currentCalculation.count > 1) {
+                    currentCalculation.removeLast()
+                    currentCalculation.append("add")
+                } else {
+                    currentCalculation = [String]()
+                    currentCalculation.append("add")
+                }
+            default: ()
+            }
         }
+        lastPressed = "op"
+        print(master, currentCalculation, lastPressed)
     }
     
     
     @IBAction func pressClear(_ sender: UIButton) {
+
         if (clearButtonDisplay.currentTitle == "C") {
             clearButtonDisplay.setTitle("AC", for: UIControl.State.normal)
+            if (currentCalculation.count > 1) {
+                if (lastPressed == "op") {
+                    currentCalculation.removeLast()
+                } else if (lastPressed == "num") {
+                    display.text = String(0)
+                }
+
+            } else {
+                if (lastPressed == "num") {
+                    display.text = String(0)
+                } else {
+                    currentCalculation = [String]()
+                }
+            }
         } else {
             display.text = String(0)
+            currentCalculation = [String]()
+            master = 0.0
         }
+        lastPressed = "clear"
+        isNewDisplay = true
+        print(master, currentCalculation, lastPressed)
     }
     
     
     func updateDisplay (value: String) {
         clearButtonDisplay.setTitle("C", for: UIControl.State.normal)
-        if (display.text == String(0)) {
+        if (lastPressed == "clear" || isNewDisplay || display.text == String(0)) {
             display.text = value
+            isNewDisplay = false
         } else {
             display.text! += value
         }
+    }
+    
+    func calculate (m: Double, cC: [String]){
+        
     }
 
 }
