@@ -71,7 +71,11 @@ class ViewController: UIViewController {
     
     
     @IBAction func pressClear(_ sender: UIButton) {
-        print("clear")
+        if (clearButtonDisplay.currentTitle == "C") {
+            clearButtonDisplay.setTitle("AC", for: UIControl.State.normal)
+        } else {
+            display.text = String(0)
+        }
     }
     
     

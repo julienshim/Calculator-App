@@ -50,7 +50,6 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="pressClear:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mz4-az-zj5"/>
-                                                    <action selector="pressNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DDB-G9-Vac"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="-3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I1g-Qx-Zcb">
