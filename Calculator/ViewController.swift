@@ -72,7 +72,7 @@ class ViewController: UIViewController {
             case 11:
                 currentCalculation.append("divide")
             case 12:
-                currentCalculation.append("multiple")
+                currentCalculation.append("multiply")
             case 13:
                 currentCalculation.append("subtract")
             case 14:
@@ -118,6 +118,9 @@ class ViewController: UIViewController {
         }
         lastPressed = "op"
         print(master, currentCalculation, lastPressed)
+        if (currentCalculation.count > 2) {
+            calculate(m: master, cC: currentCalculation)
+        }
     }
     
     
@@ -161,6 +164,13 @@ class ViewController: UIViewController {
     }
     
     func calculate (m: Double, cC: [String]){
+        if (cC[0] == "multiply") {
+            master = m * Double(cC[1])!
+            updateDisplay(value: String(format: "%g", master))
+        }
+        currentCalculation = [cC[2]]
+        isNewDisplay = true
+        print(master, currentCalculation)
         
     }
 
