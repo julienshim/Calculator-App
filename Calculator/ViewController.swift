@@ -167,6 +167,9 @@ class ViewController: UIViewController {
         if (cC[0] == "multiply") {
             master = m * Double(cC[1])!
             updateDisplay(value: String(format: "%g", master))
+        } else if (cC[0] == "divide") {
+            master = m / Double(cC[1])!
+            updateDisplay(value: String(format: "%g", master))
         }
         currentCalculation = [cC[2]]
         isNewDisplay = true
