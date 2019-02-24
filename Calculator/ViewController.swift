@@ -167,6 +167,8 @@ class ViewController: UIViewController {
         let op1 = cC[0]
         let num1 = cC[1]
         let op2 = cC[2]
+//        let num2 = cC[3]
+//        let op3 = cC[4]
         
         if (op1 == "multiply") {
             master = m * Double(num1)!
@@ -177,10 +179,16 @@ class ViewController: UIViewController {
             updateDisplay(value: String(format: "%g", master))
             currentCalculation = [op2]
         } else if (op1 == "add") {
-            master = m + Double(num1)!
+            if (op2 == "add" || op2 == "subtract") {
+                master = m + Double(num1)!
+                currentCalculation = [op2]
+            }
             updateDisplay(value: String(format: "%g", master))
         } else if (op1 == "subtract") {
-            master = m - Double(num1)!
+            if (op2 == "add" || op2 == "subtract") {
+                master = m - Double(num1)!
+                currentCalculation = [op2]
+            }
             updateDisplay(value: String(format: "%g", master))
         }
 
