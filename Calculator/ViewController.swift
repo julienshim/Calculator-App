@@ -167,8 +167,6 @@ class ViewController: UIViewController {
         let op1 = cC[0]
         let num1 = cC[1]
         let op2 = cC[2]
-//        let num2 = cC[3]
-//        let op3 = cC[4]
         
         if (op1 == "multiply") {
             master = m * Double(num1)!
@@ -182,14 +180,40 @@ class ViewController: UIViewController {
             if (op2 == "add" || op2 == "subtract") {
                 master = m + Double(num1)!
                 currentCalculation = [op2]
+                updateDisplay(value: String(format: "%g", master))
+
+            } else if (currentCalculation.count == 5) {
+                let num2 = cC[3]
+                let op3 = cC[4]
+                if (op2 == "multiply") {
+                    master = m + Double(num1)! * Double(num2)!
+                    currentCalculation = [op3]
+                } else if (op2 == "divide") {
+                    master = m + Double(num1)! / Double(num2)!
+                    updateDisplay(value: String(format: "%g", master))
+                    currentCalculation = [op3]
+                }
+                updateDisplay(value: String(format: "%g", master))
+
             }
-            updateDisplay(value: String(format: "%g", master))
         } else if (op1 == "subtract") {
             if (op2 == "add" || op2 == "subtract") {
                 master = m - Double(num1)!
                 currentCalculation = [op2]
+                updateDisplay(value: String(format: "%g", master))
+            } else if (currentCalculation.count == 5) {
+                let num2 = cC[3]
+                let op3 = cC[4]
+                if (op2 == "multiply") {
+                    master = m - Double(num1)! * Double(num2)!
+                    currentCalculation = [op3]
+                } else if (op2 == "divide") {
+                    master = m - Double(num1)! / Double(num2)!
+                    currentCalculation = [op3]
+                }
+                updateDisplay(value: String(format: "%g", master))
+
             }
-            updateDisplay(value: String(format: "%g", master))
         }
 
         isNewDisplay = true
