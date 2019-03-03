@@ -161,7 +161,11 @@ class ViewController: UIViewController {
     func updateDisplay (value: String) {
         clearButtonDisplay.setTitle("C", for: UIControl.State.normal)
         if (lastPressed == "clear" || isNewDisplay || display.text == String(0)) {
-            display.text = value
+            if (value == ".") {
+                display.text! += value;
+            } else {
+                display.text = value;
+            }
             isNewDisplay = false
         } else {
             display.text! += value
