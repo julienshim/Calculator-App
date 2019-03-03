@@ -52,11 +52,16 @@ class ViewController: UIViewController {
                 updateDisplay(value: String(sender.tag));
             case 10:
                 updateDisplay(value: String(0));
-            case 11:
+            case -1:
                 updateDisplay(value: ".")
             default: ()
         }
 
+    }
+    
+    
+    @IBAction func pressPosNeg(_ sender: UIButton) {
+        display.text = String(Int(display.text!)! * -1)
     }
     
     @IBAction func pressOp(_ sender: UIButton) {

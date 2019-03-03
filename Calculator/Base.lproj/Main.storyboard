@@ -66,6 +66,7 @@ Unicode: U+207A, UTF-8: E2 81 BA</string>
                                                 </state>
                                                 <connections>
                                                     <action selector="pressNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Hb-Fy-UxO"/>
+                                                    <action selector="pressPosNeg:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tjH-J1-etx"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="-4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z1C-aA-oQ3">
