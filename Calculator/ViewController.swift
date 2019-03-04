@@ -16,6 +16,9 @@ class ViewController: UIViewController {
     var lastPressed: String = "num"
     var currentCalculation = [String]()
     var master : Double = 0.0
+    var continuation = false;
+    var continuationValue = 0;
+    var continuationOp = ""
     
     @IBOutlet weak var display: UILabel!
     @IBOutlet weak var clearButtonDisplay: UIButton!
@@ -29,6 +32,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func pressNum(_ sender: UIButton) {
+        continuation = false;
         isOpPressed = false
         lastPressed = "num"
         switch Int(sender.tag) {
@@ -65,6 +69,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func pressOp(_ sender: UIButton) {
+        continuation = false;
         isOpPressed = true
         isNewDisplay = true
         if (lastPressed == "num" || lastPressed == "clear") {
@@ -87,6 +92,7 @@ class ViewController: UIViewController {
         } else if (lastPressed == "op") {
             switch Int(sender.tag) {
             case 11:
+                continuationOp = "divide"
                 if(currentCalculation.count > 1) {
                     currentCalculation.removeLast()
                     currentCalculation.append("divide")
@@ -95,6 +101,7 @@ class ViewController: UIViewController {
                     currentCalculation.append("divide")
                 }
             case 12:
+                continuationOp = "multiply"
                 if(currentCalculation.count > 1) {
                     currentCalculation.removeLast()
                     currentCalculation.append("multiply")
@@ -103,6 +110,7 @@ class ViewController: UIViewController {
                     currentCalculation.append("multiply")
                 }
             case 13:
+                continuationOp = "subtract"
                 if(currentCalculation.count > 1) {
                     currentCalculation.removeLast()
                     currentCalculation.append("subtract")
@@ -111,6 +119,7 @@ class ViewController: UIViewController {
                     currentCalculation.append("subtract")
                 }
             case 14:
+                continuationOp = "add"
                 if(currentCalculation.count > 1) {
                     currentCalculation.removeLast()
                     currentCalculation.append("add")
@@ -130,7 +139,32 @@ class ViewController: UIViewController {
     
     
     @IBAction func equalPressed(_ sender: UIButton) {
- 
+       
+        if(lastPressed == "op" && continuation == true) {
+            if (currentCalculation.count == 1) {
+                if (lastPressed != "equal") {
+                    continuationValue = Int(master)
+                }
+                currentCalculation.append(String(continuationValue));
+                currentCalculation.append(currentCalculation[0])
+            }
+        } else if (lastPressed == "num") {
+            continuationValue = Int(display.text!)!
+            continuationOp = currentCalculation[0];
+            currentCalculation.append(display.text!)
+            currentCalculation.append("equal");
+            print(continuationValue, continuationOp, currentCalculation)
+        } else if (lastPressed == "clear") {
+            
+        } else if (lastPressed == "equal") {
+            currentCalculation = [continuationOp, String(continuationValue), "equal"]
+            print(currentCalculation);
+        }
+        lastPressed = "equal"
+        isNewDisplay = true
+        continuation = true;
+        calculate(m: master, cC: currentCalculation)
+        print(master, currentCalculation, lastPressed)
     }
     
     
@@ -159,6 +193,8 @@ class ViewController: UIViewController {
         }
         lastPressed = "clear"
         isNewDisplay = true
+        continuation = false
+        continuationValue = 0;
         print(master, currentCalculation, lastPressed)
     }
     
@@ -184,12 +220,12 @@ class ViewController: UIViewController {
         
         if (op1 == "multiply") {
             master = m * Double(num1)!
-            updateDisplay(value: String(format: "%g", master))
-            currentCalculation = [op2]
+            if (op2 == "equal") { currentCalculation = [] } else {currentCalculation = [op2] }
+               updateDisplay(value: String(format: "%g", master))
         } else if (op1 == "divide") {
             master = m / Double(num1)!
             updateDisplay(value: String(format: "%g", master))
-            currentCalculation = [op2]
+            if (op2 == "equal") { currentCalculation = [] } else {currentCalculation = [op2] }
         } else if (op1 == "add") {
             if (op2 == "add" || op2 == "subtract") {
                 master = m + Double(num1)!
