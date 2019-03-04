@@ -129,6 +129,11 @@ class ViewController: UIViewController {
     }
     
     
+    @IBAction func equalPressed(_ sender: UIButton) {
+ 
+    }
+    
+    
     @IBAction func pressClear(_ sender: UIButton) {
 
         if (clearButtonDisplay.currentTitle == "C") {
