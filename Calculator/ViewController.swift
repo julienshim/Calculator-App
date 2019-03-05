@@ -221,7 +221,7 @@ class ViewController: UIViewController {
         if (op1 == "multiply") {
             master = m * Double(num1)!
             if (op2 == "equal") { currentCalculation = [] } else {currentCalculation = [op2] }
-               updateDisplay(value: String(format: "%g", master))
+            updateDisplay(value: String(format: "%g", master))
         } else if (op1 == "divide") {
             master = m / Double(num1)!
             updateDisplay(value: String(format: "%g", master))
@@ -247,17 +247,17 @@ class ViewController: UIViewController {
         } else if (op1 == "subtract") {
             if (op2 == "add" || op2 == "subtract") {
                 master = m - Double(num1)!
-                currentCalculation = [op2]
+                if (op2 == "equal") { currentCalculation = [] } else {currentCalculation = [op2] }
                 updateDisplay(value: String(format: "%g", master))
             } else if (currentCalculation.count == 5) {
                 let num2 = cC[3]
                 let op3 = cC[4]
                 if (op2 == "multiply") {
                     master = m - Double(num1)! * Double(num2)!
-                    currentCalculation = [op3]
+                    if (op3 == "equal") { currentCalculation = [] } else {currentCalculation = [op3] }
                 } else if (op2 == "divide") {
                     master = m - Double(num1)! / Double(num2)!
-                    currentCalculation = [op3]
+                    if (op3 == "equal") { currentCalculation = [] } else {currentCalculation = [op3] }
                 }
                 updateDisplay(value: String(format: "%g", master))
 
