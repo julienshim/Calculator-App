@@ -229,22 +229,20 @@ class ViewController: UIViewController {
         } else if (op1 == "add") {
             if (op2 == "add" || op2 == "subtract") {
                 master = m + Double(num1)!
-                currentCalculation = [op2]
                 updateDisplay(value: String(format: "%g", master))
-
+                if (op2 == "equal") { currentCalculation = [] } else {currentCalculation = [op2] }
             } else if (currentCalculation.count == 5) {
                 let num2 = cC[3]
                 let op3 = cC[4]
                 if (op2 == "multiply") {
                     master = m + Double(num1)! * Double(num2)!
-                    currentCalculation = [op3]
+                    if (op3 == "equal") { currentCalculation = [] } else {currentCalculation = [op3] }
                 } else if (op2 == "divide") {
                     master = m + Double(num1)! / Double(num2)!
                     updateDisplay(value: String(format: "%g", master))
-                    currentCalculation = [op3]
+                    if (op3 == "equal") { currentCalculation = [] } else {currentCalculation = [op3] }
                 }
                 updateDisplay(value: String(format: "%g", master))
-
             }
         } else if (op1 == "subtract") {
             if (op2 == "add" || op2 == "subtract") {
