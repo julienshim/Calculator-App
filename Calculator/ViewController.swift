@@ -140,13 +140,32 @@ class ViewController: UIViewController {
     
     @IBAction func equalPressed(_ sender: UIButton) {
        
-        if(lastPressed == "op" && continuation == true) {
-            if (currentCalculation.count == 1) {
-                if (lastPressed != "equal") {
-                    continuationValue = Int(master)
+        if(lastPressed == "op") {
+            if (continuation == true) {
+                if (currentCalculation.count == 1) {
+                    if (lastPressed != "equal") {
+                        continuationValue = Int(master)
+                    }
+                    currentCalculation.append(String(continuationValue));
+                    currentCalculation.append(currentCalculation[0])
                 }
-                currentCalculation.append(String(continuationValue));
-                currentCalculation.append(currentCalculation[0])
+            } else {
+                continuationValue = Int(master)
+                continuationOp = currentCalculation[0]
+                if (currentCalculation[0] == "add") {
+                    master = master + Double(continuationValue)
+                    updateDisplay(value: String(format: "%g", master))
+                } else if (currentCalculation[0] == "subtract") {
+                    master = master - Double(continuationValue)
+                    updateDisplay(value: String(format: "%g", master))
+                } else if (currentCalculation[0] == "multiply") {
+                    master = master * Double(continuationValue)
+                    updateDisplay(value: String(format: "%g", master))
+                } else if (currentCalculation[0] == "divide") {
+                    master = master / Double(continuationValue)
+                    updateDisplay(value: String(format: "%g", master))
+                }
+                print(continuationValue, continuationOp, master, currentCalculation)
             }
         } else if (lastPressed == "num") {
             continuationValue = Int(display.text!)!
@@ -157,13 +176,24 @@ class ViewController: UIViewController {
         } else if (lastPressed == "clear") {
             
         } else if (lastPressed == "equal") {
-            currentCalculation = [continuationOp, String(continuationValue), "equal"]
-            print(currentCalculation);
+            if (currentCalculation[0] == "add") {
+                master = master + Double(continuationValue)
+                     updateDisplay(value: String(format: "%g", master))
+            } else if (currentCalculation[0] == "subtract") {
+                master = master - Double(continuationValue)
+                updateDisplay(value: String(format: "%g", master))
+            } else if (currentCalculation[0] == "multiply") {
+                master = master * Double(continuationValue)
+                updateDisplay(value: String(format: "%g", master))
+            } else if (currentCalculation[0] == "divide") {
+                master = master / Double(continuationValue)
+                updateDisplay(value: String(format: "%g", master))
+            }
         }
         lastPressed = "equal"
         isNewDisplay = true
         continuation = true;
-        calculate(m: master, cC: currentCalculation)
+//        calculate(m: master, cC: currentCalculation)
         print(master, currentCalculation, lastPressed)
     }
     
