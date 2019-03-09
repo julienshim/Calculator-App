@@ -165,7 +165,7 @@ class ViewController: UIViewController {
                     master = master / Double(continuationValue)
                     updateDisplay(value: String(format: "%g", master))
                 }
-                print(continuationValue, continuationOp, master, currentCalculation)
+//                print(continuationValue, continuationOp, master, currentCalculation)
             }
         } else if (lastPressed == "num") {
             continuationValue = Int(display.text!)!
@@ -178,7 +178,7 @@ class ViewController: UIViewController {
         } else if (lastPressed == "equal") {
             if (currentCalculation[0] == "add") {
                 master = master + Double(continuationValue)
-                     updateDisplay(value: String(format: "%g", master))
+                updateDisplay(value: String(format: "%g", master))
             } else if (currentCalculation[0] == "subtract") {
                 master = master - Double(continuationValue)
                 updateDisplay(value: String(format: "%g", master))
@@ -193,7 +193,7 @@ class ViewController: UIViewController {
         lastPressed = "equal"
         isNewDisplay = true
         continuation = true;
-//        calculate(m: master, cC: currentCalculation)
+        calculate(m: master, cC: currentCalculation)
         print(master, currentCalculation, lastPressed)
     }
     
@@ -245,52 +245,71 @@ class ViewController: UIViewController {
     
     func calculate (m: Double, cC: [String]){
         let op1 = cC[0]
-        let num1 = cC[1]
-        let op2 = cC[2]
         
-        if (op1 == "multiply") {
-            master = m * Double(num1)!
-            if (op2 == "equal") { currentCalculation = [] } else {currentCalculation = [op2] }
-            updateDisplay(value: String(format: "%g", master))
-        } else if (op1 == "divide") {
-            master = m / Double(num1)!
-            updateDisplay(value: String(format: "%g", master))
-            if (op2 == "equal") { currentCalculation = [] } else {currentCalculation = [op2] }
-        } else if (op1 == "add") {
-            if (op2 == "add" || op2 == "subtract") {
-                master = m + Double(num1)!
+        
+        if (op1 == "equal") {
+            print("calculate")
+            if (continuationOp == "add") {
+                master = master + Double(continuationValue)
                 updateDisplay(value: String(format: "%g", master))
-                if (op2 == "equal") { currentCalculation = [] } else {currentCalculation = [op2] }
-            } else if (currentCalculation.count == 5) {
-                let num2 = cC[3]
-                let op3 = cC[4]
-                if (op2 == "multiply") {
-                    master = m + Double(num1)! * Double(num2)!
-                    if (op3 == "equal") { currentCalculation = [] } else {currentCalculation = [op3] }
-                } else if (op2 == "divide") {
-                    master = m + Double(num1)! / Double(num2)!
-                    updateDisplay(value: String(format: "%g", master))
-                    if (op3 == "equal") { currentCalculation = [] } else {currentCalculation = [op3] }
-                }
+            } else if (continuationOp == "subtract") {
+                master = master - Double(continuationValue)
+                updateDisplay(value: String(format: "%g", master))
+            } else if (continuationOp == "multiply") {
+                master = master * Double(continuationValue)
+                updateDisplay(value: String(format: "%g", master))
+            } else if (continuationOp == "divide") {
+                master = master / Double(continuationValue)
                 updateDisplay(value: String(format: "%g", master))
             }
-        } else if (op1 == "subtract") {
-            if (op2 == "add" || op2 == "subtract") {
-                master = m - Double(num1)!
+        } else {
+            let num1 = cC[1]
+            let op2 = cC[2]
+            
+            if (op1 == "multiply") {
+                master = m * Double(num1)!
                 if (op2 == "equal") { currentCalculation = [] } else {currentCalculation = [op2] }
                 updateDisplay(value: String(format: "%g", master))
-            } else if (currentCalculation.count == 5) {
-                let num2 = cC[3]
-                let op3 = cC[4]
-                if (op2 == "multiply") {
-                    master = m - Double(num1)! * Double(num2)!
-                    if (op3 == "equal") { currentCalculation = [] } else {currentCalculation = [op3] }
-                } else if (op2 == "divide") {
-                    master = m - Double(num1)! / Double(num2)!
-                    if (op3 == "equal") { currentCalculation = [] } else {currentCalculation = [op3] }
-                }
+            } else if (op1 == "divide") {
+                master = m / Double(num1)!
+                if (op2 == "equal") { currentCalculation = [] } else {currentCalculation = [op2] }
                 updateDisplay(value: String(format: "%g", master))
-
+            } else if (op1 == "add") {
+                if (op2 == "add" || op2 == "subtract" || op2 == "equal") {
+                    master = m + Double(num1)!
+                    updateDisplay(value: String(format: "%g", master))
+                    currentCalculation = [op2]
+                } else if (currentCalculation.count == 5) {
+                    let num2 = cC[3]
+                    let op3 = cC[4]
+                    if (op2 == "multiply") {
+                        master = m + Double(num1)! * Double(num2)!
+                        if (op3 == "equal") { currentCalculation = [] } else {currentCalculation = [op3] }
+                    } else if (op2 == "divide") {
+                        master = m + Double(num1)! / Double(num2)!
+                        updateDisplay(value: String(format: "%g", master))
+                        if (op3 == "equal") { currentCalculation = [] } else {currentCalculation = [op3] }
+                    }
+                    updateDisplay(value: String(format: "%g", master))
+                }
+            } else if (op1 == "subtract") {
+                if (op2 == "add" || op2 == "subtract") {
+                    master = m - Double(num1)!
+                    if (op2 == "equal") { currentCalculation = [] } else {currentCalculation = [op2] }
+                    updateDisplay(value: String(format: "%g", master))
+                } else if (currentCalculation.count == 5) {
+                    let num2 = cC[3]
+                    let op3 = cC[4]
+                    if (op2 == "multiply") {
+                        master = m - Double(num1)! * Double(num2)!
+                        if (op3 == "equal") { currentCalculation = [] } else {currentCalculation = [op3] }
+                    } else if (op2 == "divide") {
+                        master = m - Double(num1)! / Double(num2)!
+                        if (op3 == "equal") { currentCalculation = [] } else {currentCalculation = [op3] }
+                    }
+                    updateDisplay(value: String(format: "%g", master))
+                    
+                }
             }
         }
 
