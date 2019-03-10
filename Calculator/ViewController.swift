@@ -147,6 +147,7 @@ class ViewController: UIViewController {
             continuationOp = currentCalculation[0];
             currentCalculation.append(display.text!)
             currentCalculation.append("equal");
+            calculate(m: master, cC: currentCalculation)
         } else if (lastPressed == "clear") {
             
         } else if (lastPressed == "equal") {
@@ -155,7 +156,6 @@ class ViewController: UIViewController {
         lastPressed = "equal"
         isNewDisplay = true
         continuation = true;
-        calculate(m: master, cC: currentCalculation)
         diog()
     }
     
