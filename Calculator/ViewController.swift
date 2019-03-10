@@ -26,12 +26,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
         display.text = String(0);
-        print(master, currentCalculation, lastPressed)
     }
     
     @IBAction func pressNum(_ sender: UIButton) {
+        print("pressNum")
         continuation = false;
         isOpPressed = false
         lastPressed = "num"
@@ -61,15 +60,17 @@ class ViewController: UIViewController {
             updateDisplay(value: ".")
         default: ()
         }
-        
+        diog()
     }
     
     
     @IBAction func pressPosNeg(_ sender: UIButton) {
         display.text = String(Int(display.text!)! * -1)
+        diog()
     }
     
     @IBAction func pressOp(_ sender: UIButton) {
+        print("pressOp")
         continuation = false;
         isOpPressed = true
         isNewDisplay = true
@@ -81,12 +82,16 @@ class ViewController: UIViewController {
             }
             switch Int(sender.tag) {
             case 11:
+                continuationOp = "divide"
                 currentCalculation.append("divide")
             case 12:
+                continuationOp = "multiply"
                 currentCalculation.append("multiply")
             case 13:
+                continuationOp = "subtract"
                 currentCalculation.append("subtract")
             case 14:
+                continuationOp = "add"
                 currentCalculation.append("add")
             default: ()
             }
@@ -104,10 +109,10 @@ class ViewController: UIViewController {
             }
         }
         lastPressed = "op"
-        print(master, currentCalculation, lastPressed)
         if (currentCalculation.count > 2) {
             calculate(m: master, cC: currentCalculation)
         }
+        diog()
     }
     
     func updateOp (op: String) {
@@ -122,7 +127,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func equalPressed(_ sender: UIButton) {
-        
+        print("equalPressed")
         if(lastPressed == "op") {
             if (continuation == true) {
                 if (currentCalculation.count == 1) {
@@ -135,54 +140,28 @@ class ViewController: UIViewController {
             } else {
                 continuationValue = Int(master)
                 continuationOp = currentCalculation[0]
-                if (currentCalculation[0] == "add") {
-                    master = master + Double(continuationValue)
-                    updateDisplay(value: String(format: "%g", master))
-                } else if (currentCalculation[0] == "subtract") {
-                    master = master - Double(continuationValue)
-                    updateDisplay(value: String(format: "%g", master))
-                } else if (currentCalculation[0] == "multiply") {
-                    master = master * Double(continuationValue)
-                    updateDisplay(value: String(format: "%g", master))
-                } else if (currentCalculation[0] == "divide") {
-                    master = master / Double(continuationValue)
-                    updateDisplay(value: String(format: "%g", master))
-                }
-                print("inhere", continuationValue, continuationOp, master, currentCalculation)
+                equalCalc(op: continuationOp)
             }
         } else if (lastPressed == "num") {
             continuationValue = Int(display.text!)!
             continuationOp = currentCalculation[0];
             currentCalculation.append(display.text!)
             currentCalculation.append("equal");
-            print(continuationValue, continuationOp, currentCalculation)
         } else if (lastPressed == "clear") {
             
         } else if (lastPressed == "equal") {
-            if (currentCalculation[0] == "add") {
-                master = master + Double(continuationValue)
-                updateDisplay(value: String(format: "%g", master))
-            } else if (currentCalculation[0] == "subtract") {
-                master = master - Double(continuationValue)
-                updateDisplay(value: String(format: "%g", master))
-            } else if (currentCalculation[0] == "multiply") {
-                master = master * Double(continuationValue)
-                updateDisplay(value: String(format: "%g", master))
-            } else if (currentCalculation[0] == "divide") {
-                master = master / Double(continuationValue)
-                updateDisplay(value: String(format: "%g", master))
-            }
+            equalCalc(op: currentCalculation[0])
         }
         lastPressed = "equal"
         isNewDisplay = true
         continuation = true;
-        //        calculate(m: master, cC: currentCalculation)
-        print(master, currentCalculation, lastPressed)
+        calculate(m: master, cC: currentCalculation)
+        diog()
     }
     
     
     @IBAction func pressClear(_ sender: UIButton) {
-        
+        print("pressClear")
         if (clearButtonDisplay.currentTitle == "C") {
             clearButtonDisplay.setTitle("AC", for: UIControl.State.normal)
             if (currentCalculation.count > 1) {
@@ -208,7 +187,7 @@ class ViewController: UIViewController {
         isNewDisplay = true
         continuation = false
         continuationValue = 0;
-        print(master, currentCalculation, lastPressed)
+        diog()
     }
     
     
@@ -227,23 +206,12 @@ class ViewController: UIViewController {
     }
     
     func calculate (m: Double, cC: [String]){
+        print("calculating")
         let op1 = cC[0]
         
         
         if (op1 == "equal") {
-            if (continuationOp == "add") {
-                master = master + Double(continuationValue)
-                updateDisplay(value: String(format: "%g", master))
-            } else if (continuationOp == "subtract") {
-                master = master - Double(continuationValue)
-                updateDisplay(value: String(format: "%g", master))
-            } else if (continuationOp == "multiply") {
-                master = master * Double(continuationValue)
-                updateDisplay(value: String(format: "%g", master))
-            } else if (continuationOp == "divide") {
-                master = master / Double(continuationValue)
-                updateDisplay(value: String(format: "%g", master))
-            }
+            equalCalc(op: continuationOp)
         } else {
             let num1 = cC[1]
             let op2 = cC[2]
@@ -275,10 +243,10 @@ class ViewController: UIViewController {
                     updateDisplay(value: String(format: "%g", master))
                 }
             } else if (op1 == "subtract") {
-                if (op2 == "add" || op2 == "subtract") {
+                if (op2 == "add" || op2 == "subtract" || op2 == "equal") {
                     master = m - Double(num1)!
-                    if (op2 == "equal") { currentCalculation = [] } else {currentCalculation = [op2] }
                     updateDisplay(value: String(format: "%g", master))
+                    currentCalculation = [op2]
                 } else if (currentCalculation.count == 5) {
                     let num2 = cC[3]
                     let op3 = cC[4]
@@ -296,8 +264,28 @@ class ViewController: UIViewController {
         }
         
         isNewDisplay = true
-        print(master, currentCalculation)
         
+    }
+    
+    func equalCalc (op: String) {
+        if (op == "add") {
+            master = master + Double(continuationValue)
+            updateDisplay(value: String(format: "%g", master))
+        } else if (op == "subtract") {
+            master = master - Double(continuationValue)
+            updateDisplay(value: String(format: "%g", master))
+        } else if (op == "multiply") {
+            master = master * Double(continuationValue)
+            updateDisplay(value: String(format: "%g", master))
+        } else if (op == "divide") {
+            master = master / Double(continuationValue)
+            updateDisplay(value: String(format: "%g", master))
+        }
+    }
+    
+    func diog() {
+        print("master", master, "currentCalculation", currentCalculation, "lastPressed", lastPressed)
+//        print("cont?", continuation, "contValue", continuationValue, "contOp", continuationOp)
     }
     
 }
