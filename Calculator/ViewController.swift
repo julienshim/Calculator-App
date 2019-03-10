@@ -30,37 +30,38 @@ class ViewController: UIViewController {
         display.text = String(0);
         print(master, currentCalculation, lastPressed)
     }
-
+    
     @IBAction func pressNum(_ sender: UIButton) {
         continuation = false;
         isOpPressed = false
         lastPressed = "num"
+        
         switch Int(sender.tag) {
-            case 1:
-                updateDisplay(value: String(sender.tag));
-            case 2:
-                updateDisplay(value: String(sender.tag));
-            case 3:
-                updateDisplay(value: String(sender.tag));
-            case 4:
-                updateDisplay(value: String(sender.tag));
-            case 5:
-                updateDisplay(value: String(sender.tag));
-            case 6:
-                updateDisplay(value: String(sender.tag));
-            case 7:
-                updateDisplay(value: String(sender.tag));
-            case 8:
-                updateDisplay(value: String(sender.tag));
-            case 9:
-                updateDisplay(value: String(sender.tag));
-            case 10:
-                updateDisplay(value: String(0));
-            case -1:
-                updateDisplay(value: ".")
-            default: ()
+        case 1:
+            updateDisplay(value: String(sender.tag));
+        case 2:
+            updateDisplay(value: String(sender.tag));
+        case 3:
+            updateDisplay(value: String(sender.tag));
+        case 4:
+            updateDisplay(value: String(sender.tag));
+        case 5:
+            updateDisplay(value: String(sender.tag));
+        case 6:
+            updateDisplay(value: String(sender.tag));
+        case 7:
+            updateDisplay(value: String(sender.tag));
+        case 8:
+            updateDisplay(value: String(sender.tag));
+        case 9:
+            updateDisplay(value: String(sender.tag));
+        case 10:
+            updateDisplay(value: String(0));
+        case -1:
+            updateDisplay(value: ".")
+        default: ()
         }
-
+        
     }
     
     
@@ -92,41 +93,13 @@ class ViewController: UIViewController {
         } else if (lastPressed == "op") {
             switch Int(sender.tag) {
             case 11:
-                continuationOp = "divide"
-                if(currentCalculation.count > 1) {
-                    currentCalculation.removeLast()
-                    currentCalculation.append("divide")
-                } else {
-                    currentCalculation = [String]()
-                    currentCalculation.append("divide")
-                }
+                updateOp(op: "divide")
             case 12:
-                continuationOp = "multiply"
-                if(currentCalculation.count > 1) {
-                    currentCalculation.removeLast()
-                    currentCalculation.append("multiply")
-                } else {
-                    currentCalculation = [String]()
-                    currentCalculation.append("multiply")
-                }
+                updateOp(op: "multiply")
             case 13:
-                continuationOp = "subtract"
-                if(currentCalculation.count > 1) {
-                    currentCalculation.removeLast()
-                    currentCalculation.append("subtract")
-                } else {
-                    currentCalculation = [String]()
-                    currentCalculation.append("subtract")
-                }
+                updateOp(op: "subtract")
             case 14:
-                continuationOp = "add"
-                if(currentCalculation.count > 1) {
-                    currentCalculation.removeLast()
-                    currentCalculation.append("add")
-                } else {
-                    currentCalculation = [String]()
-                    currentCalculation.append("add")
-                }
+                updateOp(op: "add")
             default: ()
             }
         }
@@ -137,9 +110,19 @@ class ViewController: UIViewController {
         }
     }
     
+    func updateOp (op: String) {
+        continuationOp = op
+        if(currentCalculation.count > 1) {
+            currentCalculation.removeLast()
+            currentCalculation.append(op)
+        } else {
+            currentCalculation = [op]
+        }
+    }
+    
     
     @IBAction func equalPressed(_ sender: UIButton) {
-       
+        
         if(lastPressed == "op") {
             if (continuation == true) {
                 if (currentCalculation.count == 1) {
@@ -165,7 +148,7 @@ class ViewController: UIViewController {
                     master = master / Double(continuationValue)
                     updateDisplay(value: String(format: "%g", master))
                 }
-//                print(continuationValue, continuationOp, master, currentCalculation)
+                print("inhere", continuationValue, continuationOp, master, currentCalculation)
             }
         } else if (lastPressed == "num") {
             continuationValue = Int(display.text!)!
@@ -193,13 +176,13 @@ class ViewController: UIViewController {
         lastPressed = "equal"
         isNewDisplay = true
         continuation = true;
-        calculate(m: master, cC: currentCalculation)
+        //        calculate(m: master, cC: currentCalculation)
         print(master, currentCalculation, lastPressed)
     }
     
     
     @IBAction func pressClear(_ sender: UIButton) {
-
+        
         if (clearButtonDisplay.currentTitle == "C") {
             clearButtonDisplay.setTitle("AC", for: UIControl.State.normal)
             if (currentCalculation.count > 1) {
@@ -208,17 +191,17 @@ class ViewController: UIViewController {
                 } else if (lastPressed == "num") {
                     display.text = String(0)
                 }
-
+                
             } else {
                 if (lastPressed == "num") {
                     display.text = String(0)
                 } else {
-                    currentCalculation = [String]()
+                    currentCalculation = []
                 }
             }
         } else {
             display.text = String(0)
-            currentCalculation = [String]()
+            currentCalculation = []
             master = 0.0
         }
         lastPressed = "clear"
@@ -248,7 +231,6 @@ class ViewController: UIViewController {
         
         
         if (op1 == "equal") {
-            print("calculate")
             if (continuationOp == "add") {
                 master = master + Double(continuationValue)
                 updateDisplay(value: String(format: "%g", master))
@@ -312,10 +294,10 @@ class ViewController: UIViewController {
                 }
             }
         }
-
+        
         isNewDisplay = true
         print(master, currentCalculation)
         
     }
-
+    
 }
