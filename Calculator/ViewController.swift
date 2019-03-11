@@ -151,7 +151,8 @@ class ViewController: UIViewController {
         } else if (lastPressed == "clear") {
             
         } else if (lastPressed == "equal") {
-            equalCalc(op: currentCalculation[0])
+            equalCalc(op: continuationOp)
+            print("wtf");
         }
         lastPressed = "equal"
         isNewDisplay = true
@@ -192,6 +193,7 @@ class ViewController: UIViewController {
     
     
     func updateDisplay (value: String) {
+        print("updating display...")
         clearButtonDisplay.setTitle("C", for: UIControl.State.normal)
         if (lastPressed == "clear" || isNewDisplay || display.text == String(0)) {
             if (value == ".") {
@@ -208,7 +210,7 @@ class ViewController: UIViewController {
     func calculate (m: Double, cC: [String]){
         print("calculating")
         let op1 = cC[0]
-        
+              isNewDisplay = true
         
         if (op1 == "equal") {
             equalCalc(op: continuationOp)
@@ -218,11 +220,11 @@ class ViewController: UIViewController {
             
             if (op1 == "multiply") {
                 master = m * Double(num1)!
-                if (op2 == "equal") { currentCalculation = [] } else {currentCalculation = [op2] }
+                if (op2 == "equal") { currentCalculation = ["equal"] } else {currentCalculation = [op2] }
                 updateDisplay(value: String(format: "%g", master))
             } else if (op1 == "divide") {
                 master = m / Double(num1)!
-                if (op2 == "equal") { currentCalculation = [] } else {currentCalculation = [op2] }
+                if (op2 == "equal") { currentCalculation = ["equal"] } else {currentCalculation = [op2] }
                 updateDisplay(value: String(format: "%g", master))
             } else if (op1 == "add") {
                 if (op2 == "add" || op2 == "subtract" || op2 == "equal") {
@@ -234,11 +236,11 @@ class ViewController: UIViewController {
                     let op3 = cC[4]
                     if (op2 == "multiply") {
                         master = m + Double(num1)! * Double(num2)!
-                        if (op3 == "equal") { currentCalculation = [] } else {currentCalculation = [op3] }
+                        if (op3 == "equal") { currentCalculation = ["equal"] } else {currentCalculation = [op3] }
                     } else if (op2 == "divide") {
                         master = m + Double(num1)! / Double(num2)!
                         updateDisplay(value: String(format: "%g", master))
-                        if (op3 == "equal") { currentCalculation = [] } else {currentCalculation = [op3] }
+                        if (op3 == "equal") { currentCalculation = ["equal"] } else {currentCalculation = [op3] }
                     }
                     updateDisplay(value: String(format: "%g", master))
                 }
@@ -263,7 +265,7 @@ class ViewController: UIViewController {
             }
         }
         
-        isNewDisplay = true
+  
         
     }
     
