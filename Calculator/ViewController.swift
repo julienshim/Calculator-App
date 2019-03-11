@@ -200,7 +200,6 @@ class ViewController: UIViewController {
             } else {
                 display.text = value;
             }
-            isNewDisplay = false
         } else {
             display.text! += value
         }
