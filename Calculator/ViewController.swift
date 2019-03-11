@@ -238,7 +238,6 @@ class ViewController: UIViewController {
                         if (op3 == "equal") { currentCalculation = ["equal"] } else {currentCalculation = [op3] }
                     } else if (op2 == "divide") {
                         master = m + Double(num1)! / Double(num2)!
-                        updateDisplay(value: String(format: "%g", master))
                         if (op3 == "equal") { currentCalculation = ["equal"] } else {currentCalculation = [op3] }
                     }
                     updateDisplay(value: String(format: "%g", master))
