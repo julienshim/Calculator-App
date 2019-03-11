@@ -144,7 +144,6 @@ class ViewController: UIViewController {
             }
         } else if (lastPressed == "num") {
             continuationValue = Int(display.text!)!
-            continuationOp = currentCalculation[0];
             currentCalculation.append(display.text!)
             currentCalculation.append("equal");
             calculate(m: master, cC: currentCalculation)
