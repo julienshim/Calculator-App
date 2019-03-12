@@ -128,20 +128,12 @@ class ViewController: UIViewController {
     
     @IBAction func equalPressed(_ sender: UIButton) {
         print("equalPressed")
+        print("continuation", continuation)
         if(lastPressed == "op") {
-            if (continuation == true) {
-                if (currentCalculation.count == 1) {
-                    if (lastPressed != "equal") {
-                        continuationValue = Int(master)
-                    }
-                    currentCalculation.append(String(continuationValue));
-                    currentCalculation.append(currentCalculation[0])
-                }
-            } else {
+                print("fuck ya'll")
                 continuationValue = Int(master)
                 continuationOp = currentCalculation[0]
                 equalCalc(op: continuationOp)
-            }
         } else if (lastPressed == "num") {
             continuationValue = Int(display.text!)!
             currentCalculation.append(display.text!)
