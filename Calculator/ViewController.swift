@@ -194,7 +194,12 @@ class ViewController: UIViewController {
             if (value == ".") {
                 display.text! += value;
             } else {
-                display.text = value == "nan" ? "Not a number" : value;
+                if (value == "nan" || value == "inf") {
+                    display.text = "Not a number"
+                    clearButtonDisplay.setTitle("AC", for: UIControl.State.normal)
+                } else {
+                    display.text = value
+                }
             }
         } else {
             display.text! += value
