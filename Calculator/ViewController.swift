@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     var currentDisplay: String = "0"
     var isOpPressed: Bool = false
     var isNewDisplay: Bool = true
-    var lastPressed: String = "num"
+    var lastPressed: String = "clear"
     var currentCalculation = [String]()
     var master : Double = 0.0
     var continuation = false;
@@ -129,8 +129,12 @@ class ViewController: UIViewController {
     @IBAction func equalPressed(_ sender: UIButton) {
         print("equalPressed")
         print("continuation", continuation)
-        if(lastPressed == "op") {
-                print("fuck ya'll")
+        
+        if (lastPressed == "" || lastPressed == "clear") {
+            master = Double(display.text!)!
+            updateDisplay(value: String(format: "%g", master))
+            
+        } else if(lastPressed == "op") {
                 continuationValue = Int(master)
                 continuationOp = currentCalculation[0]
                 equalCalc(op: continuationOp)
@@ -190,7 +194,7 @@ class ViewController: UIViewController {
             if (value == ".") {
                 display.text! += value;
             } else {
-                display.text = value;
+                display.text = value == "nan" ? "Not a number" : value;
             }
         } else {
             display.text! += value
