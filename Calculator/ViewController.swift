@@ -158,7 +158,12 @@ class ViewController: UIViewController {
     
     @IBAction func pressClear(_ sender: UIButton) {
         print("pressClear")
-        if (clearButtonDisplay.currentTitle == "C") {
+        if (lastPressed == "equal") {
+            currentCalculation = [];
+            master = 0.0
+            updateDisplay(value: String(format: "%g", master))
+            clearButtonDisplay.setTitle("AC", for: UIControl.State.normal)
+        } else if (clearButtonDisplay.currentTitle == "C") {
             clearButtonDisplay.setTitle("AC", for: UIControl.State.normal)
             if (currentCalculation.count > 1) {
                 if (lastPressed == "op") {
