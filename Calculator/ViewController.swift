@@ -238,12 +238,13 @@ class ViewController: UIViewController {
                     updateDisplay(value: String(format: "%g", master))
                     currentCalculation = [op2]
                 } else if (currentCalculation.count == 4) {
-                    master = m + Double (num1)!
+                    master = Double(currentCalculation[1])! * master + Double(currentCalculation[1])!
                     continuationOp = currentCalculation[2]
                     continuationValue = Int(currentCalculation[1])!
                     currentCalculation = [currentCalculation[3]]
                     lastPressed = "equal"
                     updateDisplay(value: String(format: "%g", master))
+                    print("MOTHERFUCKER", currentCalculation)
                 } else if (currentCalculation.count == 5) {
                     let num2 = cC[3]
                     let op3 = cC[4]
@@ -261,6 +262,13 @@ class ViewController: UIViewController {
                     master = m - Double(num1)!
                     updateDisplay(value: String(format: "%g", master))
                     currentCalculation = [op2]
+                } else if (currentCalculation.count == 4) {
+                    master = Double(currentCalculation[1])! * master - Double(currentCalculation[1])!
+                    continuationOp = currentCalculation[2]
+                    continuationValue = Int(currentCalculation[1])!
+                    currentCalculation = [currentCalculation[3]]
+                    lastPressed = "equal"
+                    updateDisplay(value: String(format: "%g", master))
                 } else if (currentCalculation.count == 5) {
                     let num2 = cC[3]
                     let op3 = cC[4]
