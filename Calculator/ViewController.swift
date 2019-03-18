@@ -128,16 +128,18 @@ class ViewController: UIViewController {
     
     @IBAction func equalPressed(_ sender: UIButton) {
         print("equalPressed")
-        print("continuation", continuation)
-        
         if (lastPressed == "" || lastPressed == "clear") {
             master = Double(display.text!)!
             updateDisplay(value: String(format: "%g", master))
-            
         } else if(lastPressed == "op") {
+            if (currentCalculation.count == 3) {
+                currentCalculation.append("equal")
+                calculate(m: master, cC: currentCalculation)
+            } else {
                 continuationValue = Int(master)
                 continuationOp = currentCalculation[0]
                 equalCalc(op: continuationOp)
+            }
         } else if (lastPressed == "num") {
             continuationValue = Int(display.text!)!
             currentCalculation.append(display.text!)
@@ -235,6 +237,9 @@ class ViewController: UIViewController {
                     master = m + Double(num1)!
                     updateDisplay(value: String(format: "%g", master))
                     currentCalculation = [op2]
+                } else if (currentCalculation.count == 4) {
+                    
+                    print("what up bitch", currentCalculation);
                 } else if (currentCalculation.count == 5) {
                     let num2 = cC[3]
                     let op3 = cC[4]
@@ -273,17 +278,22 @@ class ViewController: UIViewController {
     }
     
     func equalCalc (op: String) {
+        print("equal calculating")
         if (op == "add") {
             master = master + Double(continuationValue)
+            currentCalculation = ["equal"]
             updateDisplay(value: String(format: "%g", master))
         } else if (op == "subtract") {
             master = master - Double(continuationValue)
+            currentCalculation = ["equal"]
             updateDisplay(value: String(format: "%g", master))
         } else if (op == "multiply") {
             master = master * Double(continuationValue)
+            currentCalculation = ["equal"]
             updateDisplay(value: String(format: "%g", master))
         } else if (op == "divide") {
             master = master / Double(continuationValue)
+            currentCalculation = ["equal"]
             updateDisplay(value: String(format: "%g", master))
         }
     }
