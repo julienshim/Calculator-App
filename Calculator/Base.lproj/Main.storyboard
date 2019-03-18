@@ -78,6 +78,7 @@ Unicode: U+207A, UTF-8: E2 81 BA</string>
                                                 </state>
                                                 <connections>
                                                     <action selector="pressNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aUI-1j-SNS"/>
+                                                    <action selector="pressPercent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nsh-vn-my3"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKh-VK-gJP">
