@@ -129,7 +129,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func equalPressed(_ sender: UIButton) {
-`        if (lastPressed == "" || lastPressed == "clear") {
+        if (lastPressed == "" || lastPressed == "clear") {
             master = Double(display.text!)!
             updateDisplay(value: String(format: "%g", master))
         } else if(lastPressed == "op") {
