@@ -78,7 +78,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func pressOp(_ sender: UIButton) {
-              print("pressing op")
+        print("pressing op")
         continuation = false;
         isOpPressed = true
         isNewDisplay = true
@@ -231,7 +231,11 @@ class ViewController: UIViewController {
                 }
             }
         } else {
+            if (currentCalculation == []) {
+                display.text! = display.text!
+            } else {
             display.text! += value
+            }
             print("h")
         }
         diog()
