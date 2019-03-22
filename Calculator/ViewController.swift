@@ -30,6 +30,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func pressNum(_ sender: UIButton) {
+              print("pressing num")
         continuation = false
         isOpPressed = false
         lastPressed = "num"
@@ -60,23 +61,28 @@ class ViewController: UIViewController {
         default: ()
         }
         diog()
+        isNewDisplay = false;
+
     }
     
     @IBAction func pressPercent(_ sender: UIButton) {
+              print("pressing percent")
         display.text = String(Double(display.text!)! * 0.01)
         diog()
     }
     
     @IBAction func pressPosNeg(_ sender: UIButton) {
+              print("pressing pos/neg")
         display.text = String(Double(display.text!)! * -1)
         diog()
     }
     
     @IBAction func pressOp(_ sender: UIButton) {
+              print("pressing op")
         continuation = false;
         isOpPressed = true
         isNewDisplay = true
-        if (lastPressed == "num" || lastPressed == "clear") {
+        if (lastPressed == "num" || lastPressed == "clear" || lastPressed == "equal") {
             if (master == 0) {
                 master = Double(display.text!)!
             } else if (currentCalculation.count % 2 == 1) {
@@ -118,6 +124,7 @@ class ViewController: UIViewController {
     }
     
     func updateOp (op: String) {
+              print("updating op")
         continuationOp = op
         isNewDisplay = true
         if(currentCalculation.count > 1) {
@@ -130,10 +137,8 @@ class ViewController: UIViewController {
     
     
     @IBAction func equalPressed(_ sender: UIButton) {
-        if (lastPressed == "" || lastPressed == "clear") {
-            master = Double(display.text!)!
-            updateDisplay(value: String(format: "%g", master))
-        } else if(lastPressed == "op") {
+              print("pressing equal")
+        if(lastPressed == "op") {
             if (currentCalculation.count == 3) {
                 currentCalculation.append("equal")
                 calculate(m: master, cC: currentCalculation)
@@ -142,15 +147,16 @@ class ViewController: UIViewController {
                 continuationOp = currentCalculation[0]
                 equalCalc(op: continuationOp)
             }
-        } else if (lastPressed == "num") {
+        } else if (lastPressed == "num" && currentCalculation != []) {
             continuationValue = Double(display.text!)!
             currentCalculation.append(display.text!)
             currentCalculation.append("equal");
             calculate(m: master, cC: currentCalculation)
-        } else if (lastPressed == "clear") {
-            
         } else if (lastPressed == "equal") {
             equalCalc(op: continuationOp)
+        } else if (currentCalculation == [] || lastPressed == "clear") {
+            master = Double(display.text!)!
+            updateDisplay(value: String(format: "%g", master))
         }
         lastPressed = "equal"
         isNewDisplay = true
@@ -160,6 +166,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func pressClear(_ sender: UIButton) {
+              print("pressing clear")
         if (lastPressed == "equal") {
             currentCalculation = [];
             master = 0.0
@@ -195,28 +202,45 @@ class ViewController: UIViewController {
     
     
     func updateDisplay (value: String) {
-        print(isNewDisplay, lastPressed, isNewDisplay)
+        print("updating display")
         clearButtonDisplay.setTitle("C", for: UIControl.State.normal)
         if (lastPressed == "clear" || isNewDisplay) {
+             print("D")
             if (value == ".") {
-                if (display.text == String(0)) { display.text! += value } else { display.text! = String(0) + value }
+                if (display.text == String(0)) {
+                    display.text! = String(0) + value
+                    print("B")
+                } else {
+                    if (value == ".") {
+                        display.text! = String(0) + value
+                    } else {
+                        display.text! = value
+                    }
+                    
+                    print("FUCKER")
+                }
             } else {
+                 print("E")
                 if (value == "nan" || value == "inf") {
+                     print("F")
                     display.text = "Not a number"
                     clearButtonDisplay.setTitle("AC", for: UIControl.State.normal)
                 } else {
                     display.text = value
+                     print("G")
                 }
             }
         } else {
             display.text! += value
+            print("h")
         }
-        isNewDisplay = false
+        diog()
     }
     
     func calculate (m: Double, cC: [String]){
+        print("calculate")
         let op1 = cC[0]
-              isNewDisplay = true
+        isNewDisplay = true
         
         if (op1 == "equal") {
             equalCalc(op: continuationOp)
@@ -284,11 +308,12 @@ class ViewController: UIViewController {
             }
         }
         
-  
+  diog()
         
     }
     
     func equalCalc (op: String) {
+              print("equal calculate")
         if (op == "add") {
             master = master + Double(continuationValue)
             currentCalculation = ["equal"]
@@ -306,10 +331,12 @@ class ViewController: UIViewController {
             currentCalculation = ["equal"]
             updateDisplay(value: String(format: "%g", master))
         }
+        diog()
     }
     
     func diog() {
         print("master", master, "currentCalculation", currentCalculation, "lastPressed", lastPressed)
+        print("isNewDisplay", isNewDisplay)
     }
     
 }
