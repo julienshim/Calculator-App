@@ -15,9 +15,9 @@ class ViewController: UIViewController {
     var isNewDisplay: Bool = true
     var lastPressed: String = "clear"
     var currentCalculation = [String]()
-    var master : Double = 0.0
+    var master: Double = 0.0
     var continuation = false;
-    var continuationValue = 0;
+    var continuationValue: Double = 0.0;
     var continuationOp = ""
     
     @IBOutlet weak var display: UILabel!
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func pressNum(_ sender: UIButton) {
-        continuation = false;
+        continuation = false
         isOpPressed = false
         lastPressed = "num"
         
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func pressPosNeg(_ sender: UIButton) {
-        display.text = String(Int(display.text!)! * -1)
+        display.text = String(Double(display.text!)! * -1)
         diog()
     }
     
@@ -119,6 +119,7 @@ class ViewController: UIViewController {
     
     func updateOp (op: String) {
         continuationOp = op
+        isNewDisplay = true
         if(currentCalculation.count > 1) {
             currentCalculation.removeLast()
             currentCalculation.append(op)
@@ -137,12 +138,12 @@ class ViewController: UIViewController {
                 currentCalculation.append("equal")
                 calculate(m: master, cC: currentCalculation)
             } else {
-                continuationValue = Int(master)
+                continuationValue = Double(master)
                 continuationOp = currentCalculation[0]
                 equalCalc(op: continuationOp)
             }
         } else if (lastPressed == "num") {
-            continuationValue = Int(display.text!)!
+            continuationValue = Double(display.text!)!
             currentCalculation.append(display.text!)
             currentCalculation.append("equal");
             calculate(m: master, cC: currentCalculation)
@@ -194,10 +195,11 @@ class ViewController: UIViewController {
     
     
     func updateDisplay (value: String) {
+        print(isNewDisplay, lastPressed, isNewDisplay)
         clearButtonDisplay.setTitle("C", for: UIControl.State.normal)
-        if (lastPressed == "clear" || isNewDisplay || display.text == String(0)) {
+        if (lastPressed == "clear" || isNewDisplay) {
             if (value == ".") {
-                display.text! += value;
+                if (display.text == String(0)) { display.text! += value } else { display.text! = String(0) + value }
             } else {
                 if (value == "nan" || value == "inf") {
                     display.text = "Not a number"
@@ -209,6 +211,7 @@ class ViewController: UIViewController {
         } else {
             display.text! += value
         }
+        isNewDisplay = false
     }
     
     func calculate (m: Double, cC: [String]){
@@ -237,7 +240,7 @@ class ViewController: UIViewController {
                 } else if (currentCalculation.count == 4) {
                     master = Double(currentCalculation[1])! * master + Double(currentCalculation[1])!
                     continuationOp = currentCalculation[2]
-                    continuationValue = Int(currentCalculation[1])!
+                    continuationValue = Double(currentCalculation[1])!
                     currentCalculation = [currentCalculation[3]]
                     lastPressed = "equal"
                     updateDisplay(value: String(format: "%g", master))
@@ -261,7 +264,7 @@ class ViewController: UIViewController {
                 } else if (currentCalculation.count == 4) {
                     master = Double(currentCalculation[1])! * master - Double(currentCalculation[1])!
                     continuationOp = currentCalculation[2]
-                    continuationValue = Int(currentCalculation[1])!
+                    continuationValue = Double(currentCalculation[1])!
                     currentCalculation = [currentCalculation[3]]
                     lastPressed = "equal"
                     updateDisplay(value: String(format: "%g", master))
