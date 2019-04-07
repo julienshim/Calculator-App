@@ -30,7 +30,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func pressNum(_ sender: UIButton) {
-              print("pressing num")
         continuation = false
         isOpPressed = false
         lastPressed = "num"
@@ -60,25 +59,19 @@ class ViewController: UIViewController {
             updateDisplay(value: ".")
         default: ()
         }
-        diog()
         isNewDisplay = false;
 
     }
     
     @IBAction func pressPercent(_ sender: UIButton) {
-              print("pressing percent")
         display.text = String(Double(display.text!)! * 0.01)
-        diog()
     }
     
     @IBAction func pressPosNeg(_ sender: UIButton) {
-              print("pressing pos/neg")
         display.text = String(Double(display.text!)! * -1)
-        diog()
     }
     
     @IBAction func pressOp(_ sender: UIButton) {
-        print("pressing op")
         continuation = false;
         isOpPressed = true
         isNewDisplay = true
@@ -120,11 +113,9 @@ class ViewController: UIViewController {
         if (currentCalculation.count > 2) {
             calculate(m: master, cC: currentCalculation)
         }
-        diog()
     }
     
     func updateOp (op: String) {
-              print("updating op")
         continuationOp = op
         isNewDisplay = true
         if(currentCalculation.count > 1) {
@@ -137,7 +128,6 @@ class ViewController: UIViewController {
     
     
     @IBAction func equalPressed(_ sender: UIButton) {
-              print("pressing equal")
         if(lastPressed == "op") {
             if (currentCalculation.count == 3) {
                 currentCalculation.append("equal")
@@ -161,12 +151,10 @@ class ViewController: UIViewController {
         lastPressed = "equal"
         isNewDisplay = true
         continuation = true;
-        diog()
     }
     
     
     @IBAction func pressClear(_ sender: UIButton) {
-              print("pressing clear")
         if (lastPressed == "equal") {
             currentCalculation = [];
             master = 0.0
@@ -197,37 +185,28 @@ class ViewController: UIViewController {
         isNewDisplay = true
         continuation = false
         continuationValue = 0;
-        diog()
     }
     
     
     func updateDisplay (value: String) {
-        print("updating display")
         clearButtonDisplay.setTitle("C", for: UIControl.State.normal)
         if (lastPressed == "clear" || isNewDisplay) {
-             print("D")
             if (value == ".") {
                 if (display.text == String(0)) {
                     display.text! = String(0) + value
-                    print("B")
                 } else {
                     if (value == ".") {
                         display.text! = String(0) + value
                     } else {
                         display.text! = value
                     }
-                    
-                    print("FUCKER")
                 }
             } else {
-                 print("E")
                 if (value == "nan" || value == "inf") {
-                     print("F")
                     display.text = "Not a number"
                     clearButtonDisplay.setTitle("AC", for: UIControl.State.normal)
                 } else {
                     display.text = value
-                     print("G")
                 }
             }
         } else {
@@ -236,13 +215,10 @@ class ViewController: UIViewController {
             } else {
             display.text! += value
             }
-            print("h")
         }
-        diog()
     }
     
     func calculate (m: Double, cC: [String]){
-        print("calculate")
         let op1 = cC[0]
         isNewDisplay = true
         
@@ -311,13 +287,9 @@ class ViewController: UIViewController {
                 }
             }
         }
-        
-  diog()
-        
     }
     
     func equalCalc (op: String) {
-              print("equal calculate")
         if (op == "add") {
             master = master + Double(continuationValue)
             currentCalculation = ["equal"]
@@ -335,12 +307,6 @@ class ViewController: UIViewController {
             currentCalculation = ["equal"]
             updateDisplay(value: String(format: "%g", master))
         }
-        diog()
-    }
-    
-    func diog() {
-        print("master", master, "currentCalculation", currentCalculation, "lastPressed", lastPressed)
-        print("isNewDisplay", isNewDisplay)
     }
     
 }
